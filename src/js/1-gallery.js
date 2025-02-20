@@ -1,4 +1,5 @@
 import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const images = [
   {
@@ -65,6 +66,12 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
+const optionsSimpleLightBox = {
+  captions: true,
+  captionDelay: 250,
+};
+
 const gallery = document.querySelector(`.gallery`);
 let newItems = ``;
 
@@ -79,6 +86,7 @@ function createGalleryItemsFrom(obj) {
       src="${preview}"
       data-source="${original}"
       alt="${description}"
+      title="${description}"
     />
   </a>
 </li>`;
@@ -94,9 +102,8 @@ function showOriginalImage(event) {
       src="${event.target.dataset.source}"
       alt="${event.target.alt}"
     />`;
-  // const itemOpen = basicLightbox.create(itemOriginalImage);
-  // itemOpen.show();
 }
+
 function clickGalleryItem(event) {
   if (event.target.nodeName === 'IMG') {
     event.preventDefault();
@@ -106,8 +113,8 @@ function clickGalleryItem(event) {
 
 newItems = createGalleryItemsFrom(images);
 addItemsToGallery(newItems);
-// gallery.addEventListener(`click`, event => clickGalleryItem(event));
-let galleryLight = new SimpleLightbox('.gallery a');
-galleryLight.on('show.simplelightbox', function () {
-  // Do something…
+let galleryLight = new SimpleLightbox('.gallery a', optionsSimpleLightBox);
+galleryLight.on('show.simplelightbox', function () {});
+galleryLight.on('error.simplelightbox', function (e) {
+  console.log(e);
 });

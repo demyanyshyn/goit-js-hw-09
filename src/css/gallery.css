@@ -61,3 +61,6 @@ body {
   height: 200px;
   transition: transform 0.3s;
 }
+.sl-overlay {
+  background-color: black;
+}
