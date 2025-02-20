@@ -12,18 +12,44 @@ const saveUserDataInput = data => {
   localStorage.setItem('feedback-form-state', JSON.stringify(data));
 };
 const setFormData = data => {
-  console.log(userForm.email.textContent);
+  data.email.value = formData.email;
+  data.message.value = formData.message;
 };
 
 const checkUSerData = () => {
-  let localData = JSON.parse(localStorage.getItem('feedback-form-state'));
+  let localData = JSON.parse(localStorage.getItem('feedback-form-state')) ?? ``;
   if (localData.email || localData.message) {
-    setFormData(localData);
-  }
+    formData = {
+      email: localData.email,
+      message: localData.message,
+    };
+    return true;
+  } else return false;
 };
-checkUSerData(userForm);
+const checkUserInput = event =>
+  event.currentTarget.elements.email.value &&
+  event.currentTarget.elements.message.value;
+
+// BOdy
+
+checkUSerData() ? setFormData(userForm) : console.log(`storage empty`);
 
 userForm.addEventListener(`input`, event => {
   formData = grabtUserDataInput(event);
   saveUserDataInput(formData);
+});
+
+userForm.addEventListener(`submit`, event => {
+  event.preventDefault();
+  if (!checkUserInput(event)) {
+    alert(`Fill please all fields`);
+  } else {
+    formData = {
+      email: event.currentTarget.elements.email.value,
+      message: event.currentTarget.elements.message.value,
+    };
+    console.log(formData);
+    event.currentTarget.reset();
+    localStorage.clear();
+  }
 });
