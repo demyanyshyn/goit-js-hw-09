@@ -68,7 +68,6 @@ const images = [
 ];
 
 const optionsSimpleLightBox = {
-  captions: true,
   captionDelay: 250,
   captionsData: 'alt',
 };

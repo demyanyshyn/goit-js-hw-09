@@ -1,5 +1,6 @@
-const formData = { email: '', message: '' };
+let formData = { email: '', message: '' };
 const userForm = document.querySelector(`.feedback-form`);
+const key = 'feedback-form-state';
 
 const grabtUserDataInput = event => {
   return {
@@ -9,7 +10,7 @@ const grabtUserDataInput = event => {
 };
 
 const saveUserDataInput = data => {
-  localStorage.setItem('feedback-form-state', JSON.stringify(data));
+  localStorage.setItem(key, JSON.stringify(data));
 };
 const setFormData = () => {
   userForm.email.value = formData.email;
@@ -17,7 +18,7 @@ const setFormData = () => {
 };
 
 const checkUSerData = () => {
-  let localData = JSON.parse(localStorage.getItem('feedback-form-state')) ?? ``;
+  let localData = JSON.parse(localStorage.getItem(key)) ?? ``;
   if (localData.email || localData.message) {
     formData = {
       email: localData.email,
@@ -44,12 +45,11 @@ userForm.addEventListener(`submit`, event => {
   if (!checkUserInput(event)) {
     alert(`Fill please all fields`);
   } else {
-    formData = {
-      email: event.currentTarget.elements.email.value,
-      message: event.currentTarget.elements.message.value,
-    };
+    formData.email = event.currentTarget.elements.email.value;
+    formData.message = event.currentTarget.elements.message.value;
+
     console.log(formData);
     event.currentTarget.reset();
-    localStorage.clear();
+    localStorage.removeItem(key);
   }
 });
