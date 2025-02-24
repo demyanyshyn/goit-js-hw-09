@@ -70,6 +70,7 @@ const images = [
 const optionsSimpleLightBox = {
   captions: true,
   captionDelay: 250,
+  captionsData: 'alt',
 };
 
 const gallery = document.querySelector(`.gallery`);
@@ -86,7 +87,8 @@ function createGalleryItemsFrom(obj) {
       src="${preview}"
       data-source="${original}"
       alt="${description}"
-      title="${description}"
+    
+
     />
   </a>
 </li>`;
@@ -95,20 +97,6 @@ function createGalleryItemsFrom(obj) {
 }
 function addItemsToGallery(items) {
   gallery.innerHTML += items;
-}
-function showOriginalImage(event) {
-  const itemOriginalImage = `<img
-      class="modal-image"
-      src="${event.target.dataset.source}"
-      alt="${event.target.alt}"
-    />`;
-}
-
-function clickGalleryItem(event) {
-  if (event.target.nodeName === 'IMG') {
-    event.preventDefault();
-    showOriginalImage(event);
-  }
 }
 
 newItems = createGalleryItemsFrom(images);

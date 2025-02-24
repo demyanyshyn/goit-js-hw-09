@@ -1,4 +1,4 @@
-let formData = { email: '', message: '' };
+const formData = { email: '', message: '' };
 const userForm = document.querySelector(`.feedback-form`);
 
 const grabtUserDataInput = event => {
@@ -11,9 +11,9 @@ const grabtUserDataInput = event => {
 const saveUserDataInput = data => {
   localStorage.setItem('feedback-form-state', JSON.stringify(data));
 };
-const setFormData = data => {
-  data.email.value = formData.email;
-  data.message.value = formData.message;
+const setFormData = () => {
+  userForm.email.value = formData.email;
+  userForm.message.value = formData.message;
 };
 
 const checkUSerData = () => {
@@ -32,7 +32,7 @@ const checkUserInput = event =>
 
 // BOdy
 
-checkUSerData() ? setFormData(userForm) : console.log(`storage empty`);
+checkUSerData() ? setFormData() : console.log(`storage empty`);
 
 userForm.addEventListener(`input`, event => {
   formData = grabtUserDataInput(event);
